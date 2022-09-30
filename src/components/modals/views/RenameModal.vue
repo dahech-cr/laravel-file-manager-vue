@@ -5,17 +5,21 @@
             <button type="button" class="btn-close" aria-label="Close" v-on:click="hideModal"></button>
         </div>
         <div class="modal-body">
-            <div class="form-group">
-                <label for="fm-input-rename">{{ lang.modal.rename.fieldName }}</label>
-                <input
-                    type="text"
-                    class="form-control"
-                    id="fm-input-rename"
+            <div class="flex flex-col w-96">
+
+                <label for="fm-input-rename" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    {{ lang.modal.rename.fieldName }}
+                </label>
+                <input 
+                    type="text" 
+                    id="fm-input-rename" 
+                    class=" bg-gray-50 border border-gray-300 !text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" 
                     v-focus
                     v-bind:class="{ 'is-invalid': checkName }"
                     v-model="name"
                     v-on:keyup="validateName"
-                />
+                >
+
                 <div class="invalid-feedback" v-show="checkName">
                     {{ lang.modal.rename.fieldFeedback }}
                     {{ directoryExist ? ` - ${lang.modal.rename.directoryExist}` : '' }}
@@ -24,10 +28,22 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-info" v-bind:disabled="submitDisable" v-on:click="rename">
+            <button 
+                type="button" 
+                class="text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
+                v-bind:disabled="submitDisable" 
+                v-on:click="rename"    
+            >
                 {{ lang.btn.submit }}
             </button>
-            <button type="button" class="btn btn-light" v-on:click="hideModal">{{ lang.btn.cancel }}</button>
+
+            <button 
+                type="button"
+                class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 " 
+                v-on:click="hideModal"
+            >
+                {{ lang.btn.cancel }}
+            </button>
         </div>
     </div>
 </template>
