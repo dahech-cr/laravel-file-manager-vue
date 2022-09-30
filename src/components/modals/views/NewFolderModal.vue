@@ -1,47 +1,43 @@
 <template>
     <div class="modal-content fm-modal-folder">
-        <div class="modal-header">
-            <h5 class="modal-title">{{ lang.modal.newFolder.title }}</h5>
-            <button type="button" class="btn-close" aria-label="Close" v-on:click="hideModal"></button>
-        </div>
+        <ModalHeader :title="lang.modal.newFolder.title" @hideModal="hideModal" />
+
         <div class="modal-body">
-            <div class="form-group">
-                <label for="fm-folder-name">{{ lang.modal.newFolder.fieldName }}</label>
-                <input
-                    type="text"
-                    class="form-control"
-                    id="fm-folder-name"
-                    v-focus
-                    v-bind:class="{ 'is-invalid': directoryExist }"
+            <div class="form-group flex flex-col">
+                <ModalInput
+                    id="fm-folder-name"              
+                    :label="lang.modal.newFolder.fieldName"
                     v-model="directoryName"
-                    v-on:keyup="validateDirName"
+                    :invalid="directoryExist"
+                    @keyup="validateDirName"
                 />
                 <div class="invalid-feedback" v-show="directoryExist">
                     {{ lang.modal.newFolder.fieldFeedback }}
                 </div>
             </div>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-info" v-bind:disabled="!submitActive" v-on:click="addFolder">
-                {{ lang.btn.submit }}
-            </button>
-            <button type="button" class="btn btn-light" v-on:click="hideModal">{{ lang.btn.cancel }}</button>
-        </div>
+        <ModalFooter 
+            :disabled="!submitActive"
+            :hideModal="hideModal"
+            :submitAction="addFolder"
+        />
     </div>
 </template>
 
 <script>
 import modal from '../mixins/modal';
 import translate from '../../../mixins/translate';
+import ModalHeader from '../box/ModalHeader.vue';
+import ModalFooter from '../box/ModalFooter.vue';
+import ModalInput from '../box/ModalInput.vue';
 
 export default {
-    name: 'NewFolderModal',
+    name: "NewFolderModal",
     mixins: [modal, translate],
     data() {
         return {
             // name for new directory
-            directoryName: '',
-
+            directoryName: "",
             // directory exist
             directoryExist: false,
         };
@@ -61,24 +57,23 @@ export default {
          */
         validateDirName() {
             if (this.directoryName) {
-                this.directoryExist = this.$store.getters[`fm/${this.activeManager}/directoryExist`](
-                    this.directoryName
-                );
-            } else {
+                this.directoryExist = this.$store.getters[`fm/${this.activeManager}/directoryExist`](this.directoryName);
+            }
+            else {
                 this.directoryExist = false;
             }
         },
-
         /**
          * Create new directory
          */
         addFolder() {
-            this.$store.dispatch('fm/createDirectory', this.directoryName).then((response) => {
-                if (response.data.result.status === 'success') {
+            this.$store.dispatch("fm/createDirectory", this.directoryName).then((response) => {
+                if (response.data.result.status === "success") {
                     this.hideModal();
                 }
             });
         },
     },
+    components: { ModalHeader, ModalFooter, ModalInput }
 };
 </script>

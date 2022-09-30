@@ -5,10 +5,10 @@
             <button type="button" class="btn-close" aria-label="Close" v-on:click="hideModal"></button>
         </div>
         <div class="modal-body">
-            <div class="row">
-                <div class="col-2">{{ lang.modal.properties.disk }}:</div>
-                <div class="col-9">{{ selectedDisk }}</div>
-                <div class="col-1 text-right">
+            <div class="flex mb-2 items-center gap-x-2">
+                <div class="w-2/12">{{ lang.modal.properties.disk }}:</div>
+                <div class="w-9/12">{{ selectedDisk }}</div>
+                <div class="w-1/12 relative mb-1 text-right">
                     <i
                         v-on:click="copyToClipboard(selectedDisk)"
                         v-bind:title="lang.clipboard.copy"
@@ -16,10 +16,10 @@
                     />
                 </div>
             </div>
-            <div class="row">
-                <div class="col-2">{{ lang.modal.properties.name }}:</div>
-                <div class="col-9">{{ selectedItem.basename }}</div>
-                <div class="col-1 text-right">
+            <div class="flex mb-2 items-center gap-x-2">
+                <div class="w-2/12">{{ lang.modal.properties.name }}:</div>
+                <div class="w-9/12 ">{{ selectedItem.basename }}</div>
+                <div class="w-1/12 relative text-right">
                     <i
                         v-on:click="copyToClipboard(selectedItem.basename)"
                         v-bind:title="lang.clipboard.copy"
@@ -27,10 +27,10 @@
                     />
                 </div>
             </div>
-            <div class="row">
-                <div class="col-2">{{ lang.modal.properties.path }}:</div>
-                <div class="col-9">{{ selectedItem.path }}</div>
-                <div class="col-1 text-right">
+            <div class="flex mb-2 items-center gap-x-2">
+                <div class="w-2/12">{{ lang.modal.properties.path }}:</div>
+                <div class="w-9/12">{{ selectedItem.path }}</div>
+                <div class="w-1/12 relative mb-1 text-right">
                     <i
                         v-on:click="copyToClipboard(selectedItem.path)"
                         v-bind:title="lang.clipboard.copy"
@@ -39,10 +39,10 @@
                 </div>
             </div>
             <template v-if="selectedItem.type === 'file'">
-                <div class="row">
-                    <div class="col-2">{{ lang.modal.properties.size }}:</div>
-                    <div class="col-9">{{ bytesToHuman(selectedItem.size) }}</div>
-                    <div class="col-1 text-right">
+                <div class="flex mb-2 items-center gap-x-2">
+                    <div class="w-2/12">{{ lang.modal.properties.size }}:</div>
+                    <div class="w-9/12">{{ bytesToHuman(selectedItem.size) }}</div>
+                    <div class="w-1/12 relative mb-1 text-right">
                         <i
                             v-on:click="copyToClipboard(bytesToHuman(selectedItem.size))"
                             v-bind:title="lang.clipboard.copy"
@@ -50,9 +50,9 @@
                         />
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-2">{{ lang.modal.properties.url }}:</div>
-                    <div class="col-9">
+                <div class="flex mb-2 items-center gap-x-2">
+                    <div class="w-2/12">{{ lang.modal.properties.url }}:</div>
+                    <div class="w-9/12">
                         <span v-if="url">{{ url }}</span>
                         <span v-else>
                             <button v-on:click="getUrl" type="button" class="btn btn-sm btn-light">
@@ -60,16 +60,16 @@
                             </button>
                         </span>
                     </div>
-                    <div v-if="url" class="col-1 text-right">
+                    <div v-if="url" class="w-1/12 relative mb-1 text-right">
                         <i v-on:click="copyToClipboard(url)" v-bind:title="lang.clipboard.copy" class="bi bi-files" />
                     </div>
                 </div>
             </template>
             <template v-if="selectedItem.hasOwnProperty('timestamp')">
-                <div class="row">
-                    <div class="col-2">{{ lang.modal.properties.modified }}:</div>
-                    <div class="col-9">{{ timestampToDate(selectedItem.timestamp) }}</div>
-                    <div class="col-1 text-right">
+                <div class="flex mb-2 items-center gap-x-2">
+                    <div class="w-2/12">{{ lang.modal.properties.modified }}:</div>
+                    <div class="w-9/12">{{ timestampToDate(selectedItem.timestamp) }}</div>
+                    <div class="w-1/12 relative mb-1 text-right">
                         <i
                             v-on:click="copyToClipboard(timestampToDate(selectedItem.timestamp))"
                             v-bind:title="lang.clipboard.copy"
@@ -79,9 +79,9 @@
                 </div>
             </template>
             <template v-if="selectedItem.hasOwnProperty('acl')">
-                <div class="row">
-                    <div class="col-2">{{ lang.modal.properties.access }}:</div>
-                    <div class="col-9">{{ lang.modal.properties['access_' + selectedItem.acl] }}</div>
+                <div class="flex mb-2 items-center gap-x-2">
+                    <div class="w-2/12">{{ lang.modal.properties.access }}:</div>
+                    <div class="w-9/12">{{ lang.modal.properties['access_' + selectedItem.acl] }}</div>
                 </div>
             </template>
         </div>
@@ -165,7 +165,7 @@ export default {
 
 <style lang="scss">
 .fm-modal-properties .modal-body {
-    .row {
+    .flex mb-2 items-center gap-x-2 {
         margin-bottom: 0.3rem;
         padding-top: 0.3rem;
         padding-bottom: 0.3rem;
@@ -184,11 +184,11 @@ export default {
         }
     }
 
-    .col-2 {
+    .w-2\12 {
         font-weight: bold;
     }
 
-    .col-9 {
+    .w-9\12 {
         word-wrap: break-word;
     }
 }

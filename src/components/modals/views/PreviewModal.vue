@@ -1,42 +1,12 @@
 <template>
-    <div class="modal-content fm-modal-preview">
-        <div class="modal-header">
-            <h5 class="modal-title w-75 text-truncate">
-                {{ showCropperModule ? lang.modal.cropper.title : lang.modal.preview.title }}
-                <small class="text-muted pl-3">{{ selectedItem.basename }}</small>
-            </h5>
-            <button type="button" class="btn-close" aria-label="Close" v-on:click="hideModal"></button>
-        </div>
+    <div class="modal-content w-fit fm-modal-preview">
         <div class="modal-body text-center">
-            <template v-if="showCropperModule">
-                <cropper-module v-bind:imgSrc="imgSrc" v-bind:maxHeight="maxHeight" v-on:closeCropper="closeCropper" />
-            </template>
-            <transition v-else name="fade" mode="out-in">
-                <div class="spinner-border spinner-border-lg text-muted my-2" v-if="!imgSrc">
-                    <span class="visually-hidden">Loading...</span>
-                </div>
-                <img
-                    v-else
-                    v-bind:src="imgSrc"
-                    v-bind:alt="selectedItem.basename"
-                    v-bind:style="{ 'max-height': maxHeight + 'px' }"
-                />
-            </transition>
-        </div>
-        <div v-if="showFooter" class="d-flex justify-content-between">
-            <span class="d-block">
-                <button
-                    type="button"
-                    class="btn btn-info"
-                    v-bind:title="lang.modal.cropper.title"
-                    v-on:click="showCropperModule = true"
-                >
-                    <i class="bi bi-crop"></i>
-                </button>
-            </span>
-            <span class="d-block">
-                <button type="button" class="btn btn-light" v-on:click="hideModal">{{ lang.btn.cancel }}</button>
-            </span>
+            <img
+                :src="imgSrc"
+                :alt="selectedItem.basename"
+                :style="{ 'max-height': maxHeight + 'px' }"
+                class="mx-auto"
+            />
         </div>
     </div>
 </template>
@@ -156,7 +126,7 @@ export default {
         }
     }
 
-    & > .d-flex {
+    & > .flex {
         padding: 1rem;
         border-top: 1px solid #e9ecef;
     }

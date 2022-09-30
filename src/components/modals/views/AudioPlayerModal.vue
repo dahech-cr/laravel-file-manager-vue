@@ -10,7 +10,7 @@
             <audio ref="fmAudio" controls />
             <hr />
             <div
-                class="d-flex justify-content-between py-2 px-2"
+                class="flex justify-between py-2 px-2"
                 v-bind:class="playingIndex === index ? 'bg-light' : ''"
                 v-for="(item, index) in audioFiles"
                 v-bind:key="index"

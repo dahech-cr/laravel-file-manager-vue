@@ -1,10 +1,10 @@
 <template>
     <div class="fm-additions-cropper">
-        <div class="row" v-bind:style="{ 'max-height': maxHeight + 'px' }">
-            <div class="col-sm-9 cropper-block">
-                <img v-bind:src="imgSrc" ref="fmCropper" v-bind:alt="selectedItem.basename" />
+        <div class="flex" v-bind:style="{ 'max-height': maxHeight + 'px' }">
+            <div class="w-9/12 cropper-block">
+                <img v-bind:src="imgSrc" ref="fmCropper" class="mx-auto" v-bind:alt="selectedItem.basename" />
             </div>
-            <div class="col-sm-3 ps-0">
+            <div class="w-1/3 ps-0">
                 <div class="cropper-preview"></div>
                 <div class="cropper-data">
                     <div class="input-group input-group-sm">
@@ -53,7 +53,7 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex justify-content-between">
+        <div class="flex justify-between">
             <div>
                 <div class="btn-group me-2" role="group" aria-label="Scale">
                     <button v-on:click="cropMove(-10, 0)" type="button" class="btn btn-info">
@@ -271,7 +271,7 @@ export default {
         font-weight: bold;
     }
 
-    & > .row {
+    & > .flex {
         flex-wrap: nowrap;
     }
 
@@ -283,7 +283,7 @@ export default {
         }
     }
 
-    .col-sm-3 {
+    .w-1.\3 {
         overflow: auto;
 
         &::-webkit-scrollbar {
@@ -318,7 +318,7 @@ export default {
         }
     }
 
-    & > .d-flex {
+    & > .flex {
         padding: 1rem;
         border-top: 1px solid #e9ecef;
     }

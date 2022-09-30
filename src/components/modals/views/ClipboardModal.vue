@@ -6,7 +6,7 @@
         </div>
         <div class="modal-body">
             <template v-if="clipboard.type">
-                <div class="d-flex justify-content-between">
+                <div class="flex justify-between">
                     <div class="w-75 text-truncate">
                         <span class="badge bg-light text-dark"
                             ><i class="bi bi-hdd pe-1"></i> {{ clipboard.disk }}</span
@@ -21,7 +21,7 @@
                 </div>
                 <hr />
                 <div
-                    class="d-flex justify-content-between"
+                    class="flex justify-between"
                     v-for="(dir, index) in directories"
                     v-bind:key="`d-${index}`"
                 >
@@ -37,7 +37,7 @@
                         ></button>
                     </div>
                 </div>
-                <div class="d-flex justify-content-between" v-for="(file, index) in files" v-bind:key="`f-${index}`">
+                <div class="flex justify-between" v-for="(file, index) in files" v-bind:key="`f-${index}`">
                     <div class="w-75 text-truncate">
                         <span><i class="bi" v-bind:class="file.icon" /> {{ file.name }}</span>
                     </div>

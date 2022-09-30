@@ -95,8 +95,13 @@ export default {
     transition: opacity 0.4s ease;
     overflow: auto;
 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     .modal-xl {
         max-width: 96%;
+        width: 100%;
     }
 }
 

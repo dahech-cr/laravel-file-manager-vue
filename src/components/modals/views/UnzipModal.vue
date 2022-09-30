@@ -1,77 +1,76 @@
 <template>
     <div class="modal-content fm-modal-unzip">
-        <div class="modal-header">
-            <h5 class="modal-title">{{ lang.modal.unzip.title }}</h5>
-            <button type="button" class="btn-close" aria-label="Close" v-on:click="hideModal"></button>
-        </div>
+
+        <ModalHeader :title="lang.modal.unzip.title" @hideModal="hideModal" />
         <div class="modal-body">
-            <div class="d-flex justify-content-between">
+            <div class="flex justify-between py-2 mb-4">
                 <div>
                     <strong>{{ lang.modal.unzip.fieldRadioName }}</strong>
                 </div>
-                <div class="form-check form-check-inline">
-                    <input
-                        class="form-check-input"
-                        id="unzipRadio1"
-                        type="radio"
+                <div class="flex items-center">
+                    <input 
+                        id="unzipRadio1" 
+                        type="checkbox"
+                        class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500"
                         v-bind:checked="!createFolder"
                         v-on:change="createFolder = false"
-                    />
-                    <label class="form-check-label" for="unzipRadio1">
+                    >
+                    <label for="unzipRadio1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                         {{ lang.modal.unzip.fieldRadio1 }}
                     </label>
                 </div>
-                <div class="form-check form-check-inline">
-                    <input
-                        class="form-check-input"
-                        id="unzipRadio2"
-                        type="radio"
+                <div class="flex items-center">
+                    <input 
+                        id="unzipRadio2" 
+                        type="checkbox"
+                        class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500"
                         v-bind:checked="createFolder"
                         v-on:change="createFolder = true"
-                    />
-                    <label class="form-check-label" for="unzipRadio2">
+                    >
+                    <label for="unzipRadio1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                         {{ lang.modal.unzip.fieldRadio2 }}
                     </label>
                 </div>
             </div>
             <hr />
-            <div v-if="createFolder" class="form-group">
-                <label for="fm-folder-name">{{ lang.modal.unzip.fieldName }}</label>
-                <input
-                    type="text"
-                    class="form-control"
+            <div v-if="createFolder" class="form-group flex flex-col pt-3">
+                <ModalInput 
+                    class="mb-3"
                     id="fm-folder-name"
-                    v-focus
-                    v-bind:class="{ 'is-invalid': directoryExist }"
+                    :label="lang.modal.unzip.fieldName"
+                    :invalid="directoryExist"
                     v-model="directoryName"
-                    v-on:keyup="validateDirName"
+                    @keyup="validateDirName"
                 />
+
                 <div class="invalid-feedback" v-show="directoryExist">
                     {{ lang.modal.unzip.fieldFeedback }}
                 </div>
             </div>
-            <span v-else class="text-danger">{{ lang.modal.unzip.warning }}</span>
+            <span v-else class="text-danger mt-3">{{ lang.modal.unzip.warning }}</span>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-info" v-bind:disabled="!submitActive" v-on:click="unpackArchive">
-                {{ lang.btn.submit }}
-            </button>
-            <button type="button" class="btn btn-light" v-on:click="hideModal">{{ lang.btn.cancel }}</button>
-        </div>
+        <ModalFooter
+            :disabled="!submitActive"
+            :hideModal="hideModal"
+            :submitAction="unpackArchive"
+        />
     </div>
 </template>
 
 <script>
 import modal from '../mixins/modal';
 import translate from '../../../mixins/translate';
+import ModalInput from '../box/ModalInput.vue';
+import ModalFooter from '../box/ModalFooter.vue';
+import ModalHeader from '../box/ModalHeader.vue';
 
 export default {
-    name: 'UnzipModal',
+    name: "UnzipModal",
     mixins: [modal, translate],
     data() {
         return {
             createFolder: false,
-            directoryName: '',
+            directoryName: "",
             directoryExist: false,
         };
     },
@@ -84,7 +83,6 @@ export default {
             if (this.createFolder) {
                 return this.directoryName && !this.directoryExist;
             }
-
             return true;
         },
     },
@@ -94,22 +92,21 @@ export default {
          */
         validateDirName() {
             if (this.directoryName) {
-                this.directoryExist = this.$store.getters[`fm/${this.activeManager}/directoryExist`](
-                    this.directoryName
-                );
-            } else {
+                this.directoryExist = this.$store.getters[`fm/${this.activeManager}/directoryExist`](this.directoryName);
+            }
+            else {
                 this.directoryExist = false;
             }
         },
-
         /**
          * Unpack selected archive
          */
         unpackArchive() {
-            this.$store.dispatch('fm/unzip', this.createFolder ? this.directoryName : null).then(() => {
+            this.$store.dispatch("fm/unzip", this.createFolder ? this.directoryName : null).then(() => {
                 this.hideModal();
             });
         },
     },
+    components: { ModalInput, ModalFooter, ModalHeader }
 };
 </script>

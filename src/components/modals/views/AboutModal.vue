@@ -8,14 +8,14 @@
             <strong>{{ lang.modal.about.name }}</strong>
             <hr />
             <dl class="row">
-                <dt class="col-3">{{ lang.modal.about.version }}:</dt>
-                <dd class="col-9">{{ version }}</dd>
+                <dt class="w-3/12">{{ lang.modal.about.version }}:</dt>
+                <dd class="w-9/12">{{ version }}</dd>
 
-                <dt class="col-3">{{ lang.modal.about.developer }}:</dt>
-                <dd class="col-9">Aleksandr Manekin (alexusmai@gmail.com)</dd>
+                <dt class="w-3/12">{{ lang.modal.about.developer }}:</dt>
+                <dd class="w-9/12">Aleksandr Manekin (alexusmai@gmail.com)</dd>
 
-                <dt class="col-3">GitHub:</dt>
-                <dd class="col-9">
+                <dt class="w-3/12">GitHub:</dt>
+                <dd class="w-9/12">
                     <a href="https://github.com/alexusmai/laravel-file-manager" target="_blank">
                         alexusmai/laravel-file-manager
                     </a>

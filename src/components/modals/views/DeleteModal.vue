@@ -1,10 +1,7 @@
 <template>
     <div class="modal-content fm-modal-delete">
-        <div class="modal-header">
-            <h5 class="modal-title">{{ lang.modal.delete.title }}</h5>
-            <button type="button" class="btn-close" aria-label="Close" v-on:click="hideModal"></button>
-        </div>
-        <div class="modal-body">
+        <ModalHeader :title="lang.modal.delete.title" @hideModal="hideModal"  />
+        <div class="modal-body flex flex-col">
             <div v-if="selectedItems.length">
                 <selected-file-list />
             </div>
@@ -12,10 +9,12 @@
                 <span class="text-danger">{{ lang.modal.delete.noSelected }}</span>
             </div>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-danger" v-on:click="deleteItems">{{ lang.modal.delete.title }}</button>
-            <button type="button" class="btn btn-light" v-on:click="hideModal">{{ lang.btn.cancel }}</button>
-        </div>
+        <ModalFooter 
+            :disabled="false"
+            :submit-title="lang.modal.delete.title"
+            :hideModal="hideModal"
+            :submitAction="deleteItems"
+        />
     </div>
 </template>
 
@@ -23,11 +22,13 @@
 import SelectedFileList from '../additions/SelectedFileList.vue';
 import modal from '../mixins/modal';
 import translate from '../../../mixins/translate';
+import ModalHeader from '../box/ModalHeader.vue';
+import ModalFooter from '../box/ModalFooter.vue';
 
 export default {
     name: 'DeleteModal',
     mixins: [modal, translate],
-    components: { SelectedFileList },
+    components: { SelectedFileList, ModalHeader, ModalFooter },
     computed: {
         /**
          * Files and folders for deleting

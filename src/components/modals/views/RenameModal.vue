@@ -1,24 +1,16 @@
 <template>
     <div class="modal-content fm-modal-rename">
-        <div class="modal-header">
-            <h5 class="modal-title">{{ lang.modal.rename.title }}</h5>
-            <button type="button" class="btn-close" aria-label="Close" v-on:click="hideModal"></button>
-        </div>
-        <div class="modal-body">
-            <div class="flex flex-col w-96">
+        <ModalHeader :title="lang.modal.rename.title" @hideModal="hideModal" />
 
-                <label for="fm-input-rename" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                    {{ lang.modal.rename.fieldName }}
-                </label>
-                <input 
-                    type="text" 
-                    id="fm-input-rename" 
-                    class=" bg-gray-50 border border-gray-300 !text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" 
-                    v-focus
-                    v-bind:class="{ 'is-invalid': checkName }"
+        <div class="modal-body">
+            <div class="flex flex-col">
+                <ModalInput
+                    id="fm-input-rename"              
+                    :label="lang.modal.rename.fieldName"
                     v-model="name"
+                    :invalid="checkName"
                     v-on:keyup="validateName"
-                >
+                />
 
                 <div class="invalid-feedback" v-show="checkName">
                     {{ lang.modal.rename.fieldFeedback }}
@@ -27,37 +19,28 @@
                 </div>
             </div>
         </div>
-        <div class="modal-footer">
-            <button 
-                type="button" 
-                class="text-white bg-blue-900 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
-                v-bind:disabled="submitDisable" 
-                v-on:click="rename"    
-            >
-                {{ lang.btn.submit }}
-            </button>
 
-            <button 
-                type="button"
-                class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 " 
-                v-on:click="hideModal"
-            >
-                {{ lang.btn.cancel }}
-            </button>
-        </div>
+        <ModalFooter 
+            :disabled="!submitDisable"
+            :hideModal="hideModal"
+            :submitAction="rename"
+        />
     </div>
 </template>
 
 <script>
 import modal from '../mixins/modal';
 import translate from '../../../mixins/translate';
+import ModalInput from '../box/ModalInput.vue';
+import ModalHeader from '../box/ModalHeader.vue';
+import ModalFooter from '../box/ModalFooter.vue';
 
 export default {
-    name: 'RenameModal',
+    name: "RenameModal",
     mixins: [modal, translate],
     data() {
         return {
-            name: '',
+            name: "",
             directoryExist: false,
             fileExist: false,
         };
@@ -70,7 +53,6 @@ export default {
         selectedItem() {
             return this.$store.getters[`fm/${this.activeManager}/selectedList`][0];
         },
-
         /**
          * Check new name
          * @returns {boolean}
@@ -78,7 +60,6 @@ export default {
         checkName() {
             return this.directoryExist || this.fileExist || !this.name;
         },
-
         /**
          * Submit button disable
          * @returns {*|boolean}
@@ -98,34 +79,34 @@ export default {
         validateName() {
             if (this.name !== this.selectedItem.basename) {
                 // if item - folder
-                if (this.selectedItem.type === 'dir') {
+                if (this.selectedItem.type === "dir") {
                     // check folder name matches
                     this.directoryExist = this.$store.getters[`fm/${this.activeManager}/directoryExist`](this.name);
-                } else {
+                }
+                else {
                     // check file name matches
                     this.fileExist = this.$store.getters[`fm/${this.activeManager}/fileExist`](this.name);
                 }
             }
         },
-
         /**
          * Rename item
          */
         rename() {
             // create new name with path
             const newName = this.selectedItem.dirname ? `${this.selectedItem.dirname}/${this.name}` : this.name;
-
             this.$store
-                .dispatch('fm/rename', {
-                    type: this.selectedItem.type,
-                    newName,
-                    oldName: this.selectedItem.path,
-                })
+                .dispatch("fm/rename", {
+                type: this.selectedItem.type,
+                newName,
+                oldName: this.selectedItem.path,
+            })
                 .then(() => {
-                    // close modal window
-                    this.hideModal();
-                });
+                // close modal window
+                this.hideModal();
+            });
         },
     },
+    components: { ModalInput, ModalHeader, ModalFooter }
 };
 </script>
