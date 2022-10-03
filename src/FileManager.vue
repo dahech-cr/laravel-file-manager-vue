@@ -1,7 +1,7 @@
 <template>
-    <div class="fm d-flex flex-column" v-bind:class="{ 'fm-full-screen': fullScreen }">
+    <div class="fm flex flex-col" v-bind:class="{ 'fm-full-screen': fullScreen }">
         <navbar-block />
-        <div class="fm-body d-flex">
+        <div class="fm-body flex">
             <notification-block />
             <context-menu />
             <modal-block v-if="showModal" />
@@ -9,23 +9,15 @@
                 <left-manager class="col" manager="left" />
             </template>
             <template v-else-if="windowsConfig === 2">
-                <folder-tree class="col-4 col-md-3" />
-                <left-manager class="col-8 col-md-9" manager="left" />
+                <folder-tree class="w-1/4" />
+                <left-manager class="w-3/4" manager="left" />
             </template>
             <template v-else-if="windowsConfig === 3">
-                <left-manager
-                    class="col-12 col-sm-6"
-                    manager="left"
-                    v-on:click.native="selectManager('left')"
-                    v-on:contextmenu.native="selectManager('left')"
-                >
+                <left-manager class="w-full" manager="left" v-on:click.native="selectManager('left')"
+                    v-on:contextmenu.native="selectManager('left')">
                 </left-manager>
-                <right-manager
-                    class="col-12 col-sm-6"
-                    manager="right"
-                    v-on:click.native="selectManager('right')"
-                    v-on:contextmenu.native="selectManager('right')"
-                >
+                <right-manager class="w-full" manager="right" v-on:click.native="selectManager('right')"
+                    v-on:contextmenu.native="selectManager('right')">
                 </right-manager>
             </template>
         </div>
@@ -308,5 +300,159 @@ export default {
     width: 100%;
     height: 100%;
     padding-bottom: 0;
+}
+</style>
+
+<style lang="scss">
+.btn-secondary {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #6c757d;
+    --bs-btn-border-color: #6c757d;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #5c636a;
+    --bs-btn-hover-border-color: #565e64;
+    --bs-btn-focus-shadow-rgb: 130, 138, 145;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #565e64;
+    --bs-btn-active-border-color: #51585e;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #6c757d;
+    --bs-btn-disabled-border-color: #6c757d;
+}
+
+.btn {
+    --bs-btn-padding-x: 0.75rem;
+    --bs-btn-padding-y: 0.375rem;
+    --bs-btn-font-family: ;
+    --bs-btn-font-size: 1rem;
+    --bs-btn-font-weight: 400;
+    --bs-btn-line-height: 1.5;
+    --bs-btn-color: #212529;
+    --bs-btn-bg: transparent;
+    --bs-btn-border-width: 1px;
+    --bs-btn-border-color: transparent;
+    --bs-btn-border-radius: 0.375rem;
+    --bs-btn-hover-border-color: transparent;
+    --bs-btn-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
+    --bs-btn-disabled-opacity: 0.65;
+    --bs-btn-focus-box-shadow: 0 0 0 0.25rem rgba(var(--bs-btn-focus-shadow-rgb), .5);
+    display: inline-block;
+    padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
+    font-family: var(--bs-btn-font-family);
+    font-size: var(--bs-btn-font-size);
+    font-weight: var(--bs-btn-font-weight);
+    line-height: var(--bs-btn-line-height);
+    color: var(--bs-btn-color);
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    border: var(--bs-btn-border-width) solid var(--bs-btn-border-color);
+    border-radius: var(--bs-btn-border-radius);
+    background-color: var(--bs-btn-bg);
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.modal-dialog {
+    position: relative;
+    width: 90%;
+    pointer-events: none;
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+}
+
+.modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    color: rgb(0, 0, 0);
+    pointer-events: auto;
+    background-color: rgb(255, 255, 255);
+    background-clip: padding-box;
+    outline: 0;
+    margin: auto;
+}
+
+.modal-header {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 10px;
+    border-bottom: 1px solid rgb(209 213 219 );
+}
+
+.modal-body {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex: 1 1 auto;
+    padding: 20px 10px;
+    flex-direction: column;
+}
+
+.modal-footer {
+    display: flex;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 10px 0;
+    background-color: white;
+    border-top: 1px solid rgb(209 213 219);
+}
+
+.modal-title {
+    margin-bottom: 0;
+    line-height: 20px;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1111;
+    display: none;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    outline: 0;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.25em 0.4em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25rem;
+}
+
+.btn-close {
+    box-sizing: content-box;
+    width: 1em;
+    height: 1em;
+    padding: 0.25em 0.25em;
+    color: #000;
+    border: 0;
+    border-radius: 0.375rem;
+    opacity: .5;
+}
+
+.leading-3{
+    line-height: 12px;
+}
+.pl-2{
+    padding-left: 8px;
 }
 </style>

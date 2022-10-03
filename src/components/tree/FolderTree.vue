@@ -36,7 +36,7 @@ export default {
 
     .fm-tree-disk {
         padding: 0.2rem 0.3rem;
-        background-color: #cff4fc;
+        background-color: #E9F3FE;
     }
 
     .fm-tree-disk > i {

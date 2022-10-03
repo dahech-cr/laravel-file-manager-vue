@@ -1,6 +1,6 @@
 <template>
     <div class="fm-additions-file-list">
-        <div class="d-flex justify-content-between" v-for="(item, index) in selectedItems" v-bind:key="index">
+        <div class="flex justify-between" v-for="(item, index) in selectedItems" v-bind:key="index">
             <div class="w-75 text-truncate">
                 <span v-if="item.type === 'dir'"> <i class="bi bi-folder" />{{ item.basename }} </span>
                 <span v-else>

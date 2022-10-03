@@ -1,6 +1,6 @@
 <template>
     <div class="fm-grid">
-        <div class="d-flex align-content-start flex-wrap">
+        <div class="flex align-content-start flex-wrap">
             <div v-if="!isRootPath" v-on:click="levelUp" class="fm-grid-item text-center">
                 <div class="fm-item-icon">
                     <i class="bi bi-arrow-90deg-up pb-2" />
@@ -114,7 +114,7 @@ export default {
         border-radius: 5px;
 
         &.active {
-            background-color: #cff4fc;
+            background-color: #E9F3FE;
             box-shadow: 3px 2px 5px gray;
         }
 
@@ -124,7 +124,7 @@ export default {
         }
 
         .fm-item-icon {
-            font-size: 5rem;
+            font-size: 1rem;
             cursor: pointer;
         }
 

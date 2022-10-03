@@ -1,6 +1,6 @@
 <template>
     <div class="fm-disk-list">
-        <ul class="list-inline">
+        <ul class="list-inline flex items-center gap-x-2">
             <li class="list-inline-item" v-for="(disk, index) in disks" v-bind:key="index">
                 <span
                     class="badge"

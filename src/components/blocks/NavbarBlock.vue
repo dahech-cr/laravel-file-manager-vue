@@ -1,7 +1,7 @@
 <template>
     <div class="fm-navbar mb-3">
-        <div class="row justify-content-between">
-            <div class="col-auto">
+        <div class="flex justify-between">
+            <div class="w-auto flex">
                 <div class="btn-group" role="group">
                     <button
                         type="button"
@@ -115,7 +115,7 @@
                     </button>
                 </div>
             </div>
-            <div class="col-auto text-right">
+            <div class="w-auto flex text-right">
                 <div class="btn-group" role="group">
                     <button
                         type="button"
@@ -147,7 +147,7 @@
                         <i class="bi bi-arrows-fullscreen"></i>
                     </button>
                 </div>
-                <div class="btn-group" role="group">
+                <!-- <div class="btn-group" role="group">
                     <button
                         type="button"
                         class="btn btn-secondary"
@@ -156,7 +156,7 @@
                     >
                         <i class="bi bi-question-lg"></i>
                     </button>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -361,7 +361,7 @@ export default {
 .fm-navbar {
     flex: 0 0 auto;
 
-    .col-auto > .btn-group:not(:last-child) {
+    .w-auto flex > .btn-group:not(:last-child) {
         margin-right: 0.4rem;
     }
 }

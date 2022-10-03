@@ -1,30 +1,30 @@
 <template>
     <div class="fm-table">
-        <table class="table table-sm">
+        <table class="table-sm">
             <thead>
-                <tr>
-                    <th class="w-65" v-on:click="sortBy('name')">
+                <tr class="py-2 border-b border-gray-400">
+                    <th class="w-1/2 text-left" v-on:click="sortBy('name')">
                         {{ lang.manager.table.name }}
                         <template v-if="sortSettings.field === 'name'">
                             <i class="bi bi-sort-down" v-show="sortSettings.direction === 'down'" />
                             <i class="bi bi-sort-up" v-show="sortSettings.direction === 'up'" />
                         </template>
                     </th>
-                    <th class="w-10" v-on:click="sortBy('size')">
+                    <th class="w-1/4 text-left" v-on:click="sortBy('size')">
                         {{ lang.manager.table.size }}
                         <template v-if="sortSettings.field === 'size'">
                             <i class="bi bi-sort-down" v-show="sortSettings.direction === 'down'" />
                             <i class="bi bi-sort-up" v-show="sortSettings.direction === 'up'" />
                         </template>
                     </th>
-                    <th class="w-10" v-on:click="sortBy('type')">
+                    <th class="w-1/4 text-left" v-on:click="sortBy('type')">
                         {{ lang.manager.table.type }}
                         <template v-if="sortSettings.field === 'type'">
                             <i class="bi bi-sort-down" v-show="sortSettings.direction === 'down'" />
                             <i class="bi bi-sort-up" v-show="sortSettings.direction === 'up'" />
                         </template>
                     </th>
-                    <th class="w-auto" v-on:click="sortBy('date')">
+                    <th class="w-auto text-left" v-on:click="sortBy('date')">
                         {{ lang.manager.table.date }}
                         <template v-if="sortSettings.field === 'date'">
                             <i class="bi bi-sort-down" v-show="sortSettings.direction === 'down'" />
@@ -45,19 +45,21 @@
                     v-bind:class="{ 'table-info': checkSelect('directories', directory.path) }"
                     v-on:click="selectItem('directories', directory.path, $event)"
                     v-on:contextmenu.prevent="contextMenu(directory, $event)"
+                    class=" border-b border-gray-400"
                 >
                     <td
-                        class="fm-content-item unselectable"
+                        class="fm-content-item unselectable py-2 pl-2"
                         v-bind:class="acl && directory.acl === 0 ? 'text-hidden' : ''"
                         v-on:dblclick="selectDirectory(directory.path)"
-                    >
-                        <i class="bi bi-folder"></i> {{ directory.basename }}
+                    >   
+                        <p class="flex items-center gap-x-2">
+                            <i class="bi bi-folder leading-3"></i> {{ directory.basename }}
+                        </p>
                     </td>
-                    <td />
-                    <td>{{ lang.manager.table.folder }}</td>
-                    <td>
-                        {{ timestampToDate(directory.timestamp) }}
-                    </td>
+
+                    <td class="py-2"></td>
+                    <td class="py-2">{{ lang.manager.table.folder }}</td>
+                    <td class="py-2 pr-2">{{ timestampToDate(directory.timestamp)}}</td>
                 </tr>
                 <tr
                     v-for="(file, index) in files"
@@ -67,17 +69,16 @@
                     v-on:dblclick="selectAction(file.path, file.extension)"
                     v-on:contextmenu.prevent="contextMenu(file, $event)"
                 >
-                    <td class="fm-content-item unselectable" v-bind:class="acl && file.acl === 0 ? 'text-hidden' : ''">
-                        <i class="bi" v-bind:class="extensionToIcon(file.extension)" />
-                        {{ file.filename ? file.filename : file.basename }}
+                    <td class="fm-content-item unselectable py-2 pl-2" v-bind:class="acl && file.acl === 0 ? 'text-hidden' : ''">
+                        <p class="flex items-center gap-x-2">
+                            <i class="bi leading-3" v-bind:class="extensionToIcon(file.extension)" />
+                            {{ file.filename ? file.filename : file.basename }}
+                        </p>
                     </td>
-                    <td>{{ bytesToHuman(file.size) }}</td>
-                    <td>
-                        {{ file.extension }}
-                    </td>
-                    <td>
-                        {{ timestampToDate(file.timestamp) }}
-                    </td>
+
+                    <td class="py-2">{{ bytesToHuman(file.size) }}</td>
+                    <td class="py-2">{{ file.extension }}</td>
+                    <td class="py-2 pr-2">{{ timestampToDate(file.timestamp)}}</td>
                 </tr>
             </tbody>
         </table>
@@ -143,14 +144,6 @@ export default {
 
     tr:hover {
         background-color: #f8f9fa;
-    }
-
-    .w-10 {
-        width: 10%;
-    }
-
-    .w-65 {
-        width: 65%;
     }
 
     .fm-content-item {
