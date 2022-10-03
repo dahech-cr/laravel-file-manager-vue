@@ -1,6 +1,6 @@
 {
-  "name": "laravel-file-manager-vue3",
-  "version": "0.0.1",
+  "name": "laravel-file-manager",
+  "version": "3.0.3",
   "description": "File manager for Laravel",
   "keywords": [
     "laravel",
